@@ -1,0 +1,44 @@
+{
+    "PORT": "5001",
+    "baseURL": "http://localhost",
+    "baseURLSecured": "https://localhost",
+    "outSideFacingPort": 1000 ,
+    "jwtSigningKey": "bWluaWZ5LXRoZXVybHNob3J0ZW5lcg==",
+    "expirationTimeInDays": "30d",
+    "cryptoSecret": "780F6FD8A27819FCD50A60CDBC69A6B2",
+    "expiryForUnauthUser": 864000,
+    "expiryForAuthUser": 2592000,
+
+
+    "winstonConfig": {
+        "file": {
+            "level": "info",
+            "filename": "app.log",
+            "handleExceptions": true,
+            "json": true,
+            "maxsize": 5242880,
+            "maxFiles": 5,
+            "colorize": false
+        },
+        "console": {
+            "level": "silly",
+            "handleExceptions": true,
+            "json": false,
+            "colorize": true
+        }
+    },
+
+
+    "mongoConfig": {
+        "connectionURL": "mongodb://localhost/mi_ni",
+        "testConnectionURL": "mongodb://localhost/test_mi_ni",
+        "optionsObject": {
+            "useNewUrlParser": true
+        }
+    },
+
+    "redisConfig" : {
+        "port" : 6379,
+        "host" : "localhost"
+    }
+}
