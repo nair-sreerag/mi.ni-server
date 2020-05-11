@@ -32,8 +32,9 @@
     "mongoConfig": {
         "connectionURL": "mongodb://localhost/mi_ni",
         "testConnectionURL": "mongodb://localhost/test_mi_ni",
-        "optionsObject": {
-            "useNewUrlParser": true
+        "options": {
+            "useNewUrlParser": true,
+            "poolSize" : 5 
         }
     },
 

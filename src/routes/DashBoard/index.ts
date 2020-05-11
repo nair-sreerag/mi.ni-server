@@ -1,6 +1,9 @@
 import { Router, Request, Response } from 'express'
 
 const dashboard = Router()
+const { loadModule } = require("mi.ni-models")
+import { LinkModelInterface } from '../../types'
+const linkModel = loadModule("Link")
 
 dashboard.get("/dashboard", function (req: Request, res: Response) {
 
@@ -14,7 +17,7 @@ dashboard.get("/dashboard", function (req: Request, res: Response) {
 
         linkModel.find({
             created_by: userDocument._id
-        }, function (error, linkDocsArray) {
+        }, function (error : any, linkDocsArray: LinkModelInterface[]) {
 
             let objToSendToDashBoard = {
                 userDocument,
@@ -33,4 +36,4 @@ dashboard.get("/dashboard", function (req: Request, res: Response) {
 })
 
 
-module.exports = dashboard
+exports = dashboard

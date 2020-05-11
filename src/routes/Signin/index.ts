@@ -1,7 +1,11 @@
 import { Router, Request, Response } from 'express'
+import { UserModelInterface } from '../../types'
+import { encrypt } from '../../main/tokenHandling'
 
 const signin = Router()
+const { loadModule } = require("mi.ni-models")
 
+const userModel = loadModule("User")
 
 
 signin.post("/signin", function (req: Request, res: Response) {
@@ -20,7 +24,7 @@ signin.post("/signin", function (req: Request, res: Response) {
         userModel.findOne({
             username: body.username,
             password: body.password
-        }, function (error, userDocument) {
+        }, function (error: any, userDocument: UserModelInterface) {
 
             console.log('document :', userDocument);
 

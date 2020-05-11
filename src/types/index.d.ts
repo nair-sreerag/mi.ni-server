@@ -1,4 +1,10 @@
-import { Hasher } from './interfaces'
+import {
+    Hasher,
+    LinkModelInterface,
+    TempLinkModelInterface,
+    UserModelInterface
+} from './interfaces'
 
 
-export { Hasher }
+
+export { Hasher, LinkModelInterface, TempLinkModelInterface, UserModelInterface }

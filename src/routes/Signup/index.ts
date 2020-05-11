@@ -1,6 +1,12 @@
 import { Router, Request, Response } from 'express'
+const { loadModule } = require("mi.ni-models")
+import { hashPassword } from '../../main/password'
+import { UserModelInterface } from '../../types'
+import { encrypt } from '../../main/tokenHandling'
+
 
 const signup = Router()
+const userModel = loadModule("User")
 
 
 signup.post("/signup", function (req: Request, res: Response) {
@@ -26,7 +32,7 @@ signup.post("/signup", function (req: Request, res: Response) {
         newUser.email = body.email;
         newUser.password = hashPassword(body.password);
 
-        newUser.save(function (error, newUserDocument) {
+        newUser.save(function (error: any, newUserDocument: UserModelInterface) {
 
             console.log('err,document :', error, newUserDocument);
 

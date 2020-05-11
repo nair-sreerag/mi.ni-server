@@ -1,5 +1,13 @@
 import { Router, Response, Request } from 'express'
 import { Types } from 'mongoose'
+import { LinkModelInterface, TempLinkModelInterface } from '../../types'
+
+import { generateHash } from '../../main/hashing'
+
+const { loadModule } = require("mi.ni-models")
+
+const linkModel = loadModule("Link")
+const tempLinkModel = loadModule("TempLink")
 
 const shorten = Router();
 import {
@@ -8,6 +16,7 @@ import {
     baseURL,
     outSideFacingPort
 } from '../../config.json'
+
 
 shorten.post("/shorten", function (req: Request, res: Response) {
 
@@ -31,7 +40,7 @@ shorten.post("/shorten", function (req: Request, res: Response) {
             new: true,
             setDefaultsOnInsert: true
         })
-            .then(async (linkDocument) => {
+            .then(async (linkDocument: LinkModelInterface) => {
                 console.log("TCL: linkDocument", linkDocument)
 
                 //check redis
@@ -44,7 +53,7 @@ shorten.post("/shorten", function (req: Request, res: Response) {
                 }
 
             })
-            .catch((error) => {
+            .catch((error : any) => {
                 console.log("TCL: error", error)
                 res.status(500).json({ error: "Some error occured wile fetching linkDoc. Please try again later." })
 
@@ -58,7 +67,7 @@ shorten.post("/shorten", function (req: Request, res: Response) {
             original_link: originalURL,
             shortened_link: generateHash(originalURL)
         })
-            .save(async function (error, tempLinkDoc) {
+            .save(async function (error: any, tempLinkDoc: TempLinkModelInterface) {
                 if (error) res.status(500).json({ error: "Some error occured while saving the temp link." })
 
                 await cacheOperationObject.setKeyWithExpiry(originalURL, tempLinkDoc.shortened_link, expiryForUnauthUser)

@@ -1,11 +1,9 @@
 import { sign, verify, decode } from 'jsonwebtoken';
 import { expirationTimeInDays, jwtSigningKey } from '../config.json'
 
+let helpers = {
 
-
-module.exports = {
-
-    encrypt: function (username: string, password: string) {
+    encrypt: function (username: string, password: string) : string{
 
         return sign({ data: { username, password } }, jwtSigningKey, {
             expiresIn: expirationTimeInDays,
@@ -22,3 +20,5 @@ module.exports = {
     }
 
 }
+
+export = helpers

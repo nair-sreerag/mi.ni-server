@@ -1,7 +1,17 @@
 import express, { Request, Response, Express, NextFunction } from 'express';
 import { PORT } from './config.json'
+import { MongoConnection } from './main/dbConnect'
+import {
+    DashBoardRoute,
+    PingRoute,
+    ShortenRoute,
+    SigninRoute,
+    SignupRoute
+} from './routes'
 
 
+
+// import * as pingRoute from './'
 
 const App: Express = express();
 
@@ -9,8 +19,7 @@ const App: Express = express();
 App.use()
 
 
-
-App.use("/:hash", function (req, res) {
+App.use("/:hash", function (req: Request, res: Response) {
 
     let h = req.param.hash
 
@@ -35,6 +44,14 @@ App.post("*", function (req: Request, res: Response) {
 
 App.listen(PORT, function () {
     console.log(`mi.ni server listening on port ${PORT}`)
+
+    if (!global.mongoHandle) {
+        console.log("Setting global handle.")
+
+        global.mongoHandle = MongoConnection.initializeAndSetHandle()
+
+    }
+
 })
 
 
