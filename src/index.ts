@@ -9,14 +9,20 @@ import {
     SignupRoute
 } from './routes'
 
-
-
-// import * as pingRoute from './'
+import { UserModelInterface, DecodedPayloadObjectInterface } from './types'
+import { verify } from './main/tokenHandling';
+const { loadModule } = require("mi.ni-models")
 
 const App: Express = express();
 
+const userModel = loadModule("User")
 
-App.use()
+App.use("/", PingRoute)
+App.use("/", SignupRoute)
+App.use("/", SigninRoute)
+App.use("/", userAuthValidatorMiddleware, ShortenRoute)
+App.use("/", userAuthExistenceCheckerMiddleware, userAuthValidatorMiddleware, DashBoardRoute)
+
 
 
 App.use("/:hash", function (req: Request, res: Response) {
@@ -47,11 +53,8 @@ App.listen(PORT, function () {
 
     if (!global.mongoHandle) {
         console.log("Setting global handle.")
-
         global.mongoHandle = MongoConnection.initializeAndSetHandle()
-
     }
-
 })
 
 
@@ -73,7 +76,6 @@ function userAuthValidatorMiddleware(req: Request, res: Response, next: NextFunc
 
     let headers = req.headers
 
-
     if (!headers.authorization) {
         console.log("inherer")
         res.locals.userDocument = null
@@ -81,7 +83,7 @@ function userAuthValidatorMiddleware(req: Request, res: Response, next: NextFunc
     }
 
 
-    let decodedJWTToken = verify(headers.authorization.split(" ")[1]);
+    let decodedJWTToken: DecodedPayloadObjectInterface = verify(headers.authorization.split(" ")[1]);
 
     let username = decodedJWTToken.data.username
     console.log("TCL: userAuthValidatorMiddleware -> username", username)
@@ -101,7 +103,7 @@ function userAuthValidatorMiddleware(req: Request, res: Response, next: NextFunc
         password
     },
         "fname lname email username")
-        .then(userDocument => {
+        .then((userDocument: UserModelInterface) => {
 
             console.log("TCL: userAuthValidatorMiddleware -> userDocument", userDocument)
             if (userDocument) {
@@ -114,7 +116,7 @@ function userAuthValidatorMiddleware(req: Request, res: Response, next: NextFunc
             }
 
         })
-        .catch(error => {
+        .catch((error: any) => {
             res.status(400).json({ error })
         })
 

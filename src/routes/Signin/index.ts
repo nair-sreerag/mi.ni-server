@@ -2,13 +2,13 @@ import { Router, Request, Response } from 'express'
 import { UserModelInterface } from '../../types'
 import { encrypt } from '../../main/tokenHandling'
 
-const signin = Router()
+const signinrouter = Router()
 const { loadModule } = require("mi.ni-models")
 
 const userModel = loadModule("User")
 
 
-signin.post("/signin", function (req: Request, res: Response) {
+signinrouter.post("/signin", function (req: Request, res: Response) {
     console.log("in /signin")
     let body = req.body
 
@@ -49,4 +49,4 @@ signin.post("/signin", function (req: Request, res: Response) {
 
 
 
-module.exports = signin
+export = signinrouter

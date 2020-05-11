@@ -1,11 +1,11 @@
 import { Router, Request, Response } from 'express'
 
-const dashboard = Router()
+const dashboardrouter = Router()
 const { loadModule } = require("mi.ni-models")
 import { LinkModelInterface } from '../../types'
 const linkModel = loadModule("Link")
 
-dashboard.get("/dashboard", function (req: Request, res: Response) {
+dashboardrouter.get("/dashboard", function (req: Request, res: Response) {
 
     console.log("TCL: res.locals", res.locals.userDocument)
     if (res.locals.userDocument) {
@@ -36,4 +36,4 @@ dashboard.get("/dashboard", function (req: Request, res: Response) {
 })
 
 
-exports = dashboard
+export = dashboardrouter

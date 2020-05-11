@@ -2,9 +2,10 @@ import {
     Hasher,
     LinkModelInterface,
     TempLinkModelInterface,
-    UserModelInterface
+    UserModelInterface,
+    DecodedPayloadObjectInterface
 } from './interfaces'
 
 
 
-export { Hasher, LinkModelInterface, TempLinkModelInterface, UserModelInterface }
+export { Hasher, LinkModelInterface, TempLinkModelInterface, UserModelInterface, DecodedPayloadObjectInterface,  }

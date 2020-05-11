@@ -29,3 +29,16 @@ export interface UserModelInterface {
     "created_on": Date,
 
 }
+
+export interface DecodedPayloadObjectInterface {
+    "exp": number | Date,
+    "data": data
+}
+
+interface data {
+    "username": string,
+    "password": string
+}
+
+
+// export interface DecodedPayloadStringInterface : string

@@ -9,7 +9,7 @@ const { loadModule } = require("mi.ni-models")
 const linkModel = loadModule("Link")
 const tempLinkModel = loadModule("TempLink")
 
-const shorten = Router();
+const shortenrouter = Router();
 import {
     expiryForUnauthUser,
     expiryForAuthUser,
@@ -18,7 +18,7 @@ import {
 } from '../../config.json'
 
 
-shorten.post("/shorten", function (req: Request, res: Response) {
+shortenrouter.post("/shorten", function (req: Request, res: Response) {
 
     console.log("in /shorten")
 
@@ -53,7 +53,7 @@ shorten.post("/shorten", function (req: Request, res: Response) {
                 }
 
             })
-            .catch((error : any) => {
+            .catch((error: any) => {
                 console.log("TCL: error", error)
                 res.status(500).json({ error: "Some error occured wile fetching linkDoc. Please try again later." })
 
@@ -78,4 +78,4 @@ shorten.post("/shorten", function (req: Request, res: Response) {
 
 })
 
-module.exports = shorten
+export = shortenrouter

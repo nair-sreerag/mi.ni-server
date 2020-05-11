@@ -1,16 +1,16 @@
-import * as DashBoardRoute from './DashBoard'
-import * as PingRoute from './Ping'
-import * as ShortenRoute from './Shorten'
-import * as SigninRoute from './Signin'
-import * as SignupRoute from './Signup'
+import dashboardrouter from './DashBoard';
+import pingrouter from './Ping';
+import shortenrouter from './Shorten';
+import signinrouter from './Signin';
+import signuprouter from './Signup';
 
 
 
 
 export {
-    DashBoardRoute,
-    PingRoute,
-    ShortenRoute,
-    SigninRoute,
-    SignupRoute
+    dashboardrouter as DashBoardRoute,
+    pingrouter as PingRoute,
+    shortenrouter as ShortenRoute,
+    signinrouter as SigninRoute,
+    signuprouter as SignupRoute
 }

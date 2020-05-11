@@ -5,11 +5,11 @@ import { UserModelInterface } from '../../types'
 import { encrypt } from '../../main/tokenHandling'
 
 
-const signup = Router()
+const signuprouter = Router()
 const userModel = loadModule("User")
 
 
-signup.post("/signup", function (req: Request, res: Response) {
+signuprouter.post("/signup", function (req: Request, res: Response) {
 
     console.log('request.body in /signup:', req.body);
 
@@ -57,4 +57,4 @@ signup.post("/signup", function (req: Request, res: Response) {
 })
 
 
-module.exports = signup
+export = signuprouter

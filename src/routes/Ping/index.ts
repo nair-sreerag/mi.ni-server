@@ -1,9 +1,10 @@
-import { Router, Request, Response } from 'express'
+// import { Router, Request, Response } from 'express'
+import * as Express from 'express'
 
-const ping = Router()
+const pingrouter = Express.Router()
 
 //connection checker
-ping.get("/ping", function (req: Request, res: Response) {
+pingrouter.get("/ping", function (req: Express.Request, res: Express.Response) {
 
     console.log('__dirname__ :', __dirname);
     console.log('__dirname__ :', process.cwd());
@@ -13,4 +14,4 @@ ping.get("/ping", function (req: Request, res: Response) {
 })
 
 
-module.exports = ping
+export = pingrouter
