@@ -15,7 +15,7 @@ const { loadModule } = require("mi.ni-models")
 
 const App: Express = express();
 
-const userModel = loadModule("User")
+const userModel = loadModule("user")
 
 App.use("/", PingRoute)
 App.use("/", SignupRoute)

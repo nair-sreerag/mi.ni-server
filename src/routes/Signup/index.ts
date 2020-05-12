@@ -6,7 +6,7 @@ import { encrypt } from '../../main/tokenHandling'
 
 
 const signuprouter = Router()
-const userModel = loadModule("User")
+const userModel = loadModule("user")
 
 
 signuprouter.post("/signup", function (req: Request, res: Response) {

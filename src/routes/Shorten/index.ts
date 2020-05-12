@@ -6,8 +6,8 @@ import { generateHash } from '../../main/hashing'
 
 const { loadModule } = require("mi.ni-models")
 
-const linkModel = loadModule("Link")
-const tempLinkModel = loadModule("TempLink")
+const linkModel = loadModule("link")
+const tempLinkModel = loadModule("templink")
 
 const shortenrouter = Router();
 import {

@@ -3,7 +3,7 @@ import { Router, Request, Response } from 'express'
 const dashboardrouter = Router()
 const { loadModule } = require("mi.ni-models")
 import { LinkModelInterface } from '../../types'
-const linkModel = loadModule("Link")
+const linkModel = loadModule("link")
 
 dashboardrouter.get("/dashboard", function (req: Request, res: Response) {
 

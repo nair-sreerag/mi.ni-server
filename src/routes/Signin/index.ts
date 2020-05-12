@@ -5,7 +5,7 @@ import { encrypt } from '../../main/tokenHandling'
 const signinrouter = Router()
 const { loadModule } = require("mi.ni-models")
 
-const userModel = loadModule("User")
+const userModel = loadModule("user")
 
 
 signinrouter.post("/signin", function (req: Request, res: Response) {
