@@ -35,10 +35,19 @@ export interface DecodedPayloadObjectInterface {
     "data": data
 }
 
+export interface Request {
+    "param": ParamInterface
+}
+
+
+
 interface data {
     "username": string,
     "password": string
 }
 
+interface ParamInterface {
+    "hash": string
+}
 
 // export interface DecodedPayloadStringInterface : string

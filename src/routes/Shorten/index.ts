@@ -44,11 +44,11 @@ shortenrouter.post("/shorten", function (req: Request, res: Response) {
                 console.log("TCL: linkDocument", linkDocument)
 
                 //check redis
-                if (await cacheOperationObject.checkKeyExistence(linkDocument.shortened_link)) {
+                if (await global.redisHandle.checkKeyExistence(linkDocument.shortened_link)) {
                     res.status(200).json({ shortened_link: baseURL + ":" + outSideFacingPort + "/" + linkDocument.shortened_link, in_cache: true, authenticated: true })
                 }
                 else {
-                    await cacheOperationObject.setKeyWithExpiry(linkDocument.original_link, linkDocument.shortened_link, expiryForAuthUser)
+                    await global.redisHandle.setKeyWithExpiry(linkDocument.original_link, linkDocument.shortened_link, expiryForAuthUser)
                     res.status(200).json({ shortened_link: baseURL + ":" + outSideFacingPort + "/" + linkDocument.shortened_link, cached_now: true, authenticated: true })
                 }
 
@@ -70,7 +70,7 @@ shortenrouter.post("/shorten", function (req: Request, res: Response) {
             .save(async function (error: any, tempLinkDoc: TempLinkModelInterface) {
                 if (error) res.status(500).json({ error: "Some error occured while saving the temp link." })
 
-                await cacheOperationObject.setKeyWithExpiry(originalURL, tempLinkDoc.shortened_link, expiryForUnauthUser)
+                await global.redisHandle.setKeyWithExpiry(originalURL, tempLinkDoc.shortened_link, expiryForUnauthUser)
                 res.status(200).json({ shortened_link: baseURL + ":" + outSideFacingPort + "/" + tempLinkDoc.shortened_link, type: "unauth" })
 
             })

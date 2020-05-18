@@ -1,5 +1,5 @@
 import express, { Request, Response, Express, NextFunction } from 'express';
-import { PORT } from './config.json'
+import { PORT, redisConfig } from './config.json'
 import { MongoConnection } from './main/dbConnect'
 import {
     DashBoardRoute,
@@ -11,6 +11,8 @@ import {
 
 import { UserModelInterface, DecodedPayloadObjectInterface } from './types'
 import { verify } from './main/tokenHandling';
+
+const CacheSDK = require("mi.ni-cache-sdk")
 const { loadModule } = require("mi.ni-models")
 
 const App: Express = express();
@@ -27,13 +29,13 @@ App.use("/", userAuthExistenceCheckerMiddleware, userAuthValidatorMiddleware, Da
 
 App.use("/:hash", function (req: Request, res: Response) {
 
-    let h = req.param.hash
+    let hash = req.params.hash
 
-    cacheOperationObject.getKey(h)
-        .then(originalURL => {
+    global.redisHandle.getValue(hash)
+        .then((originalURL: string) => {
             res.status(302).redirect(originalURL)
         })
-        .catch(error => {
+        .catch((error: any) => {
             res.status(500).json({ error })
         })
 
@@ -52,9 +54,15 @@ App.listen(PORT, function () {
     console.log(`mi.ni server listening on port ${PORT}`)
 
     if (!global.mongoHandle) {
-        console.log("Setting global handle.")
+        console.log("Setting global mongo handle.")
         global.mongoHandle = MongoConnection.initializeAndSetHandle()
     }
+
+    if (!global.redisHandle) {
+        console.log("Setting global redis handle.")
+        global.redisHandle = new CacheSDK(redisConfig.host, redisConfig.port)
+    }
+
 })
 
 
