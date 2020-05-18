@@ -34,7 +34,8 @@
         "testConnectionURL": "mongodb://localhost/test_mi_ni",
         "options": {
             "useNewUrlParser": true,
-            "poolSize" : 5 
+            "poolSize" : 5 ,
+            "useUnifiedTopology": true 
         }
     },
 

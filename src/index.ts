@@ -12,6 +12,8 @@ import {
 import { UserModelInterface, DecodedPayloadObjectInterface } from './types'
 import { verify } from './main/tokenHandling';
 
+import { yellowBright as bgYellow} from 'chalk';
+
 const CacheSDK = require("mi.ni-cache-sdk")
 const { loadModule } = require("mi.ni-models")
 
@@ -51,15 +53,15 @@ App.post("*", function (req: Request, res: Response) {
 
 
 App.listen(PORT, function () {
-    console.log(`mi.ni server listening on port ${PORT}`)
+    console.log(bgYellow(`mi.ni server listening on port ${PORT}`))
 
     if (!global.mongoHandle) {
-        console.log("Setting global mongo handle.")
+        console.log(bgYellow("Setting global mongo handle."))
         global.mongoHandle = MongoConnection.initializeAndSetHandle()
     }
 
     if (!global.redisHandle) {
-        console.log("Setting global redis handle.")
+        console.log(bgYellow("Setting global redis handle."))
         global.redisHandle = new CacheSDK(redisConfig.host, redisConfig.port)
     }
 
